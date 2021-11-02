@@ -53,9 +53,9 @@ The below install is for manual operation of the required libraries in Raspberry
 
 * Install, using apt-get, the following items: libatlas-base-dev
 
-* Install remaining requirements using pip3 install for libraries mentioned in [requirements.txt](https://code.ovgu.de/mushunur/pploc/-/blob/master/requirements.txt)
+* Install remaining requirements using pip3 install for libraries mentioned in [requirements.txt](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/blob/main/requirements.txt)
 
-To install all the libraries at once, run the [prerequisites.py](https://code.ovgu.de/mushunur/pploc/-/blob/master/prerequisites.py)
+To install all the libraries at once, run the [prerequisites.py](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/blob/main/prerequisites.py)
 
 
 ## Design and Implementation:
@@ -66,7 +66,7 @@ We have a total of 5 Rasberry Pi's which are being used as follows:
 -  1 as Central node 
 
 1. Individual Sensors:
-> We deploy [ObjectTracking](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/SensorNodes/Node1/ObjectTracking.py), [Measurements](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/SensorNodes/Node1/Measurements.py), and [Encryption](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/SensorNodes/Node1/Encryption.py) python files in each individual sensor. We track an object (red lazer light) projected within a common plane (localised for all the sensors) by using [ObjectTracking](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/SensorNodes/Node1/ObjectTracking.py) script to get (x,y) coordinates. These coordinates are used in [Measurements](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/SensorNodes/Node1/Measurements.py) to generate the measurements using a process following a linear constant velocity model. And these measurements are encrypted (Paillier encryption using PublicKey) by using [Encryption](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/SensorNodes/Node1/Encryption.py) script. 
+> We deploy [ObjectTracking](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/blob/main/FinalCode/SensorNodes/Node1/ObjectTracking.py), [Measurements](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/blob/main/FinalCode/SensorNodes/Node1/Measurements.py), and [Encryption](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/blob/main/FinalCode/SensorNodes/Node1/Encryption.py) python files in each individual sensor. We track an object (red lazer light) projected within a common plane (localised for all the sensors) by using [ObjectTracking](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/blob/main/FinalCode/SensorNodes/Node1/ObjectTracking.py) script to get (x,y) coordinates. These coordinates are used in [Measurements](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/blob/main/FinalCode/SensorNodes/Node1/Measurements.py) to generate the measurements using a process following a linear constant velocity model. And these measurements are encrypted (Paillier encryption using PublicKey) by using [Encryption](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/blob/main/FinalCode/SensorNodes/Node1/Encryption.py) script. 
 
 > In the above mentioned scripts except ObjectTracking.py, need to be deployed at each individual sensor nodes. For ObjectTracking.py, we need to calibrate the origin for each sensor seperatly in the below lines shown in the image.
 
@@ -74,10 +74,10 @@ We have a total of 5 Rasberry Pi's which are being used as follows:
 
 
 2. LocalHub Sensor:
-> We deploy 3 python files deployed in each Individual sensors along with [LocalServer](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/LocalHubNode/LocalServer.py) and [SensorDataAggregation](https://code.ovgu.de/mushunur/pploc/-/blob/master/PLOC_FinalCode/LocalHubNode/SensorDataAggregation.py) python files in this LocalHub sensor. Here [SensorDataAggregation](https://code.ovgu.de/mushunur/pploc/-/blob/master/PLOC_FinalCode/LocalHubNode/SensorDataAggregation.py) is used to aggregate the cipher measurement vectors using Paillier homomorphic addition synchronously. This localised aggragated measurement is communicated to Central node for Decryption through [LocalServer](https://code.ovgu.de/mushunur/pploc/-/blob/master/PLOC_FinalCode/LocalHubNode/LocalServer.py)
+> We deploy 3 python files deployed in each Individual sensors along with [LocalServer](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/LocalServer.py) and [SensorDataAggregation](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/SensorDataAggregation.py) python files in this LocalHub sensor. Here [SensorDataAggregation](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/SensorDataAggregation.py) is used to aggregate the cipher measurement vectors using Paillier homomorphic addition synchronously. This localised aggragated measurement is communicated to Central node for Decryption through [LocalServer](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/LocalServer.py)
 
 3. Central Node:
-> Here we generate Key (publicKey and PaillierPrivateKey) and we transport this publicKey (generated from [Decryption](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/CentralNode/Decryption.py)) using [CentralServer](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/CentralNode/CentralServer.py) to the sensors for Encryption. Also, the localised aggreagated measurement received from LocalHub sensor is decrypted at [Decryption](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/CentralNode/Decryption.py). This decrypted measurements (Localised sensor measurement) are used to run the [InformationFilter](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/CentralNode/InformationFilter.py).
+> Here we generate Key (publicKey and PaillierPrivateKey) and we transport this publicKey (generated from [Decryption](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/CentralNode/Decryption.py)) using [CentralServer](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/CentralNode/CentralServer.py) to the sensors for Encryption. Also, the localised aggreagated measurement received from LocalHub sensor is decrypted at [Decryption](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/CentralNode/Decryption.py). This decrypted measurements (Localised sensor measurement) are used to run the [InformationFilter](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/CentralNode/InformationFilter.py).
 
 ![Communication map](IMAGES/PPLOC_Communication_map.png)
 
@@ -87,7 +87,7 @@ Note: Refer the above figure while going through the instructions
       Please do not move the position of the frame as the sensors are calibrated to a fixed origin.
 
 
-1. Connect the monitor, keyboard+mouse to the **Central Node** (**Raspberry pi #3**). In the GUI of Raspberry Pi OS displayed on the monitor, Open task manager and navigate to the home directory (pi Home) and then to folder **ams-50_CentralServer** and run the [CentralServer.py](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/CentralNode/CentralServer.py) program (for reference please see below Central Node figure). The code will pop up on the **Thonny IDE**.
+1. Connect the monitor, keyboard+mouse to the **Central Node** (**Raspberry pi #3**). In the GUI of Raspberry Pi OS displayed on the monitor, Open task manager and navigate to the home directory (pi Home) and then to folder **ams-50_CentralServer** and run the [CentralServer.py](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/CentralNode/CentralServer.py) program (for reference please see below Central Node figure). The code will pop up on the **Thonny IDE**.
 
     [***Functionality:*** This Central server is run first to send the public key, created at Decryption program to each sensor to Encrypt their respective measurements]
 
@@ -100,7 +100,7 @@ Note: Refer the above figure while going through the instructions
 <img  width="800" height="500" src="IMAGES/CentralNode.jpeg" alt="Central Node"/>
 </p>
 
-3. Once the server has started, remove the monitor, keyboard+mouse and connect it to the **local hub** ( **Raspberry Pi #2**), open terminal and navigate to **ams-48_LocalServer+C** and run the [LocalServer.py](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/LocalHubNode/LocalServer.py) code (***Terminal window is preferred for this process as we use the Thonny IDE to run [ObjectTracking.py](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/LocalHubNode/ObjectTracking.py) code***).
+3. Once the server has started, remove the monitor, keyboard+mouse and connect it to the **local hub** ( **Raspberry Pi #2**), open terminal and navigate to **ams-48_LocalServer+C** and run the [LocalServer.py](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/LocalServer.py) code (***Terminal window is preferred for this process as we use the Thonny IDE to run [ObjectTracking.py](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/ObjectTracking.py) code***).
 
     [***Functionality:*** The started local server displays the following:
     {PaillierPublicKey , 'N' value}
@@ -111,7 +111,7 @@ Server
 ``` 
 ]
 
-4. After step 3, in the same **Pi #2** open task manager and navigate to home directory (pi Home) and then to folder **ams-48_LocalServer+C**, run the [ObjectTracking.py](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/LocalHubNode/ObjectTracking.py) code in the IDE.
+4. After step 3, in the same **Pi #2** open task manager and navigate to home directory (pi Home) and then to folder **ams-48_LocalServer+C**, run the [ObjectTracking.py](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/ObjectTracking.py) code in the IDE.
 
     [***Functionality:*** The local server receives only one encrypted measurement when first sensor is run and waits for others to connect, then continuously prints polling requests (like `192.168.1.161 - - [03/Sep/2021 22:07:51] "POST /socket.io/?transport=polling&EIO=4&sid=Xn_GBOQhIzrW3wKXAAAA HTTP/1.1" 200 167 0.024792`) which we can ignore at this point
 
@@ -119,7 +119,7 @@ Server
 
 <img  src="IMAGES/LocalHubNode.jpeg" alt="LocalHub Node" width="800"/>
 
-5. Once the ***LocalServer*** is up and running in ***Pi #2***, as we also started one of the [ObjectTracking.py](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/LocalHubNode/ObjectTracking.py) program we can now tranfer the monitor and Keyboard+mouse to the next sensor (**Raspberry Pi #4**) and open task manager, navigate to home directory (pi Home), then to folder **ams-51_C** and run [ObjectTracking.py](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/SensorNodes/Node4/ObjectTracking.py) code in the IDE.
+5. Once the ***LocalServer*** is up and running in ***Pi #2***, as we also started one of the [ObjectTracking.py](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/ObjectTracking.py) program we can now tranfer the monitor and Keyboard+mouse to the next sensor (**Raspberry Pi #4**) and open task manager, navigate to home directory (pi Home), then to folder **ams-51_C** and run [ObjectTracking.py](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/SensorNodes/Node4/ObjectTracking.py) code in the IDE.
 
     [***Functionality:*** The local server receives another encrypted measurement and waits for remaining 2 to connect in the background.
 
@@ -127,13 +127,13 @@ Server
 
 <img  src="IMAGES/SensorNode.jpeg" alt="Sensor Node" width="800"/>
 
-6. Next, we will move to the sensor **Raspberry Pi #1** and again open task manager, and then we will navigate to home directory (pi Home), then to folder **ams-49_C** and run [ObjectTracking.py](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/SensorNodes/Node1/ObjectTracking.py) code in the IDE.
+6. Next, we will move to the sensor **Raspberry Pi #1** and again open task manager, and then we will navigate to home directory (pi Home), then to folder **ams-49_C** and run [ObjectTracking.py](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/SensorNodes/Node1/ObjectTracking.py) code in the IDE.
 
     [***Functionality:*** The local server receives another encrypted measurement and waits for remaining 1 to connect in the background.
 
     At this sensor we can see at ObectTracking.py end, this output for the time being : `connection established ; Sending Data to server`]
 
-7. Now, repeat the above step at **Raspberry Pi #5**, by opening task manager, navigate to home directory (pi Home), then to folder **ams-52_C** and run [ObjectTracking.py](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/SensorNodes/Node5/ObjectTracking.py) code in the IDE.
+7. Now, repeat the above step at **Raspberry Pi #5**, by opening task manager, navigate to home directory (pi Home), then to folder **ams-52_C** and run [ObjectTracking.py](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/SensorNodes/Node5/ObjectTracking.py) code in the IDE.
 
     [***Functionality:*** Since the local server received all the encrypted measurements it displays 
     `Data received` from each node at ever time step (PublicKey for encryption)
@@ -165,7 +165,7 @@ Server
 Incase we run the central server again we need to make sure we deleted the previous Plot.png and run the central server
 
 - Note 2:
->The [LocalServer](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/LocalHubNode/LocalServer.py) waits for data from each sensor to establish a synchronous communication. If in case, the [LocalServer](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/LocalHubNode/LocalServer.py) is stopped manually, repeat from steps 3. If we stop [CentralServer](https://code.ovgu.de/mushunur/pploc/-/blob/master/PPLOC_FinalCode/CentralNode/CentralServer.py), then we have to stop every program and follow the instructions from initial step.
+>The [LocalServer](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/LocalServer.py) waits for data from each sensor to establish a synchronous communication. If in case, the [LocalServer](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/LocalHubNode/LocalServer.py) is stopped manually, repeat from steps 3. If we stop [CentralServer](https://github.com/VenkataKanumuri/Privacy-Preserving-Localization/tree/main/FinalCode/CentralNode/CentralServer.py), then we have to stop every program and follow the instructions from initial step.
 
 
 **Results:** 
